@@ -5,6 +5,7 @@ A macOS app that uses SwiftGen CLI to generate Swift code from various resources
 
 ## Requirements
 - Install swiftgen cli using `brew install swiftgen`
+- macOS Catalina 10.15.3
 - Xcode 11.3.1
 
 ## Running
