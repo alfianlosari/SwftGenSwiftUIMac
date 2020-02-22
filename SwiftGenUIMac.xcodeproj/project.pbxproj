@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B8DC3BF23FFEFE100C7903A /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8DC3BE23FFEFE100C7903A /* ProgressView.swift */; };
 		8BB3ABD623FF830B00E12395 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3ABD523FF830B00E12395 /* AppDelegate.swift */; };
 		8BB3ABDA23FF830D00E12395 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BB3ABD923FF830D00E12395 /* Assets.xcassets */; };
 		8BB3ABDD23FF830D00E12395 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BB3ABDC23FF830D00E12395 /* Preview Assets.xcassets */; };
 		8BB3ABE023FF830D00E12395 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BB3ABDE23FF830D00E12395 /* Main.storyboard */; };
 		8BB3ABEA23FF837C00E12395 /* Splash in Frameworks */ = {isa = PBXBuildFile; productRef = 8BB3ABE923FF837C00E12395 /* Splash */; };
 		8BB3ABF723FF83BA00E12395 /* SwiftGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3ABEC23FF83BA00E12395 /* SwiftGen.swift */; };
-		8BB3ABF823FF83BA00E12395 /* AppPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3ABED23FF83BA00E12395 /* AppPreferences.swift */; };
+		8BB3ABF823FF83BA00E12395 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3ABED23FF83BA00E12395 /* AppState.swift */; };
 		8BB3ABF923FF83BA00E12395 /* SwiftGen+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3ABEE23FF83BA00E12395 /* SwiftGen+Types.swift */; };
 		8BB3ABFA23FF83BA00E12395 /* FileSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3ABF123FF83BA00E12395 /* FileSelectView.swift */; };
 		8BB3ABFB23FF83BA00E12395 /* MacEditorTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB3ABF223FF83BA00E12395 /* MacEditorTextView.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8B8DC3BE23FFEFE100C7903A /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		8BB3ABD223FF830B00E12395 /* SwiftGenUIMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftGenUIMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BB3ABD523FF830B00E12395 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BB3ABD923FF830D00E12395 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -31,7 +33,7 @@
 		8BB3ABE123FF830D00E12395 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BB3ABE223FF830D00E12395 /* SwiftGenUIMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftGenUIMac.entitlements; sourceTree = "<group>"; };
 		8BB3ABEC23FF83BA00E12395 /* SwiftGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGen.swift; sourceTree = "<group>"; };
-		8BB3ABED23FF83BA00E12395 /* AppPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppPreferences.swift; sourceTree = "<group>"; };
+		8BB3ABED23FF83BA00E12395 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		8BB3ABEE23FF83BA00E12395 /* SwiftGen+Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwiftGen+Types.swift"; sourceTree = "<group>"; };
 		8BB3ABF123FF83BA00E12395 /* FileSelectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSelectView.swift; sourceTree = "<group>"; };
 		8BB3ABF223FF83BA00E12395 /* MacEditorTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacEditorTextView.swift; sourceTree = "<group>"; };
@@ -96,7 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				8BB3ABEC23FF83BA00E12395 /* SwiftGen.swift */,
-				8BB3ABED23FF83BA00E12395 /* AppPreferences.swift */,
+				8BB3ABED23FF83BA00E12395 /* AppState.swift */,
 				8BB3ABEE23FF83BA00E12395 /* SwiftGen+Types.swift */,
 			);
 			path = Model;
@@ -117,6 +119,7 @@
 				8BB3ABF123FF83BA00E12395 /* FileSelectView.swift */,
 				8BB3ABF223FF83BA00E12395 /* MacEditorTextView.swift */,
 				8BB3ABF323FF83BA00E12395 /* FormView.swift */,
+				8B8DC3BE23FFEFE100C7903A /* ProgressView.swift */,
 			);
 			path = Forms;
 			sourceTree = "<group>";
@@ -207,12 +210,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BB3ABFB23FF83BA00E12395 /* MacEditorTextView.swift in Sources */,
-				8BB3ABF823FF83BA00E12395 /* AppPreferences.swift in Sources */,
+				8BB3ABF823FF83BA00E12395 /* AppState.swift in Sources */,
 				8BB3ABFD23FF83BA00E12395 /* ContentView.swift in Sources */,
 				8BB3ABFC23FF83BA00E12395 /* FormView.swift in Sources */,
 				8BB3ABF723FF83BA00E12395 /* SwiftGen.swift in Sources */,
 				8BB3ABFE23FF83BA00E12395 /* Process+Extension.swift in Sources */,
 				8BB3ABFA23FF83BA00E12395 /* FileSelectView.swift in Sources */,
+				8B8DC3BF23FFEFE100C7903A /* ProgressView.swift in Sources */,
 				8BB3ABF923FF83BA00E12395 /* SwiftGen+Types.swift in Sources */,
 				8BB3ABD623FF830B00E12395 /* AppDelegate.swift in Sources */,
 			);

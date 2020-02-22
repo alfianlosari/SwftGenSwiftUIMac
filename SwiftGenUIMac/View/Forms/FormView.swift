@@ -11,7 +11,7 @@ import Splash
 
 struct FormView<S: SelectedAssetTemplate>: View {
     
-    @EnvironmentObject var preferences: AppPreferences
+    @EnvironmentObject var appState: AppState
     
     var templates: [S] { S.allCases }
     
@@ -85,13 +85,21 @@ struct FormView<S: SelectedAssetTemplate>: View {
             
             Divider()
             
-            Button(action: {
-                self.generateSwiftGen()
-            }) {
-                Text("Generate Swift Code")
-            }.disabled(self.selectedURL == nil)
-                .frame(maxWidth: .infinity)
-            
+            if appState.isProcessing {
+                HStack {
+                    Spacer()
+                    ProgressView()
+                    Spacer()
+                }
+                
+            } else {
+                Button(action: {
+                    self.generateSwiftGen()
+                }) {
+                    Text("Generate Swift Code")
+                }.disabled(self.selectedURL == nil)
+                    .frame(maxWidth: .infinity)
+            }
             Spacer()
         }
         .padding(.horizontal, 16)
@@ -127,7 +135,14 @@ struct FormView<S: SelectedAssetTemplate>: View {
             templateName: self.selectedTemplate.rawValue,
             templateParams: templateParams)
         
-        self.preferences.command = swiftGenCommand
+        self.appState.isProcessing = true
+        DispatchQueue.global(qos: .userInitiated).async {
+            _ = swiftGenCommand.generateSwiftCode()
+            DispatchQueue.main.async {
+                self.appState.isProcessing = false
+                self.appState.command = swiftGenCommand
+            }
+        }
     }
     
 }

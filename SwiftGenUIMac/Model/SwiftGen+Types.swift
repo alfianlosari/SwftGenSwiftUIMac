@@ -10,7 +10,9 @@ import Foundation
 import SwiftUI
 import Splash
 
-protocol SwiftGenCommand {
+protocol SwiftGenCommand: class {
+    
+    var cachedResult: SwiftGenResult? { get set }
     
     var type: SwiftGenType { get }
     var inputURL: URL { get }
@@ -105,14 +107,19 @@ extension SwiftGenCommand {
     }
     
     func generateSwiftCode() -> SwiftGenResult? {
+        if let cachedResult = self.cachedResult {
+            return cachedResult
+        }
+        
         guard let result = executeCommand(parameters: self.parameters ?? []) else {
             return SwiftGenResult(code: "", attributedCode: NSAttributedString(string: ""))
         }
-        
+                
         let highlighter = SyntaxHighlighter(format: AttributedStringOutputFormat(theme: Theme.midnight(withFont: Splash.Font.init(size: 20))))
         let attrString = highlighter.highlight(result)
-        
-        return SwiftGenResult(code: result, attributedCode: attrString)
+        let swiftGenResult = SwiftGenResult(code: result, attributedCode: attrString)
+        cachedResult = swiftGenResult
+        return swiftGenResult
        
     }
     
@@ -124,9 +131,15 @@ extension SwiftGenCommand {
     }
     
     func generateSwiftCodeAndCopyToClipboard() {
-        guard let text = executeCommand(parameters: parameters ?? []) else {
+        let text: String
+        if let cachedText = cachedResult?.code {
+            text = cachedText
+        } else if let _text = executeCommand(parameters: parameters ?? []) {
+            text = _text
+        } else {
             return
         }
+        
         let pasteBoard = NSPasteboard.general
         pasteBoard.clearContents()
         pasteBoard.writeObjects([text as NSString])
@@ -134,13 +147,26 @@ extension SwiftGenCommand {
     
 }
 
-struct SwiftGenConcreteCommand: SwiftGenCommand {
+class SwiftGenConcreteCommand: SwiftGenCommand {
+
     
     var type: SwiftGenType
-    var inputURL: URL
+    var inputURL: URL {
+        didSet { cachedResult = nil }
+    }
     var templateName: String
     var templateParams: TemplateParams?
-
+    
+    var cachedResult: SwiftGenResult? = nil
+    
+    init(type: SwiftGenType, inputURL: URL, templateName: String, templateParams: TemplateParams?, cachedResult: SwiftGenResult? = nil) {
+        self.type = type
+        self.inputURL = inputURL
+        self.templateName = templateName
+        self.templateParams = templateParams
+        self.cachedResult = cachedResult
+    }
+    
 }
 
 

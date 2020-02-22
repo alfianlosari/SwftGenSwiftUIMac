@@ -24,11 +24,11 @@ struct ContentView: View {
 
 struct SidebarView: View {
     
-    @EnvironmentObject var preferences: AppPreferences
+    @EnvironmentObject var appState: AppState
     var types = SwiftGenType.allCases.map { $0 }
         
     var body: some View {
-        List(selection: self.$preferences.selectedType) {
+        List(selection: self.$appState.selectedType) {
             padding(.top, 16)
             
             ForEach(self.types) { type in
@@ -45,12 +45,12 @@ struct SidebarView: View {
 
 struct MainView: View {
     
-    @EnvironmentObject var preferences: AppPreferences
+    @EnvironmentObject var appState: AppState
     
     var body: some View {
         NavigationView {
-            if preferences.selectedType != nil {
-                preferences.selectedType!.contentView
+            if appState.selectedType != nil {
+                appState.selectedType!.contentView
             }
             
             ResultsView()
@@ -62,23 +62,25 @@ struct MainView: View {
 
 struct ResultsView: View {
     
-    @EnvironmentObject var preferences: AppPreferences
+    @EnvironmentObject var appState: AppState
     
     var body: some View {
         Group {
-            if self.preferences.command != nil {
+            if self.appState.isProcessing {
+                ProgressView()
+            } else if self.appState.command != nil {
                 VStack(alignment: .trailing) {
-                    MacEditorTextView(text: self.preferences.command!.generateSwiftCode()!.attributedCode)
+                    MacEditorTextView(text: self.appState.command!.generateSwiftCode()!.attributedCode)
                     
                     HStack {
                         Button(action: {
-                            self.preferences.command!.generateSwiftCodeAndCopyToClipboard()
+                            self.appState.command!.generateSwiftCodeAndCopyToClipboard()
                         }) {
                             Text("Copy to clipboard")
                         }
                         
                         Button(action: {
-                            self.openSavePanel(command: self.preferences.command!)
+                            self.openSavePanel(command: self.appState.command!)
                         }) {
                             Text("Save to file")
                         }
@@ -102,7 +104,9 @@ struct ResultsView: View {
         savePanel.begin { (result) in
             if result == .OK {
                 guard let url = savePanel.url else { return }
-                self.preferences.command!.generateSwiftCodeAndSaveToFile(url: url)
+                DispatchQueue.global(qos: .userInitiated).async {
+                    self.appState.command!.generateSwiftCodeAndSaveToFile(url: url)
+                }
             }
         }
     }

@@ -17,9 +17,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Create the SwiftUI view that provides the window contents.
 
-        let pref = AppPreferences()
+        let appState = AppState()
         let contentView = ContentView()
-            .environmentObject(pref)
+            .environmentObject(appState)
 
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 1200, height: 768),

@@ -35,7 +35,6 @@ struct FileSelectView: View {
         panel.allowsMultipleSelection = false
         panel.canChooseFiles = self.documentType == .file
         panel.canChooseDirectories = self.documentType == .directory
-        
         panel.allowedFileTypes = allowedFileTypes
         panel.canChooseFiles = true
         panel.begin { (result) in

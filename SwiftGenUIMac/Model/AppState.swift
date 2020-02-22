@@ -1,5 +1,5 @@
 //
-//  AppPreferences.swift
+//  AppappState.swift
 //  macCMDTest
 //
 //  Created by Alfian Losari on 20/02/20.
@@ -8,18 +8,15 @@
 
 import Combine
 
-class AppPreferences: ObservableObject {
+class AppState: ObservableObject {
     
     @Published var selectedType: SwiftGenType? = SwiftGenType.allCases[0] {
         didSet {
+            self.isProcessing = false
             self.command = nil
         }
     }
     
-    
-    @Published var command: SwiftGenCommand? = nil {
-        didSet {
-            
-        }
-    }
+    @Published var isProcessing: Bool = false
+    @Published var command: SwiftGenCommand? = nil
 }
